@@ -1,0 +1,163 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Enterprise
+ *
+ * @ORM\Table(name="enterprise")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EnterpriseRepository")
+ */
+class Enterprise
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siret", type="string", length=9, unique=true)
+     */
+    private $siret;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nic", type="string", length=5)
+     */
+    private $nic;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="denomination", type="string", length=100)
+     */
+    private $denomination;
+
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="JuridicForm", inversedBy="enterprises")
+     */
+    private $juridicForm;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Address")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $address;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set siret
+     *
+     * @param string $siret
+     *
+     * @return Enterprise
+     */
+    public function setSiret($siret)
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    /**
+     * Get siret
+     *
+     * @return string
+     */
+    public function getSiret()
+    {
+        return $this->siret;
+    }
+
+    /**
+     * Set nic
+     *
+     * @param string $nic
+     *
+     * @return Enterprise
+     */
+    public function setNic($nic)
+    {
+        $this->nic = $nic;
+
+        return $this;
+    }
+
+    /**
+     * Get nic
+     *
+     * @return string
+     */
+    public function getNic()
+    {
+        return $this->nic;
+    }
+
+    /**
+     * Set denomination
+     *
+     * @param string $denomination
+     *
+     * @return Enterprise
+     */
+    public function setDenomination($denomination)
+    {
+        $this->denomination = $denomination;
+
+        return $this;
+    }
+
+    /**
+     * Get denomination
+     *
+     * @return string
+     */
+    public function getDenomination()
+    {
+        return $this->denomination;
+    }
+
+    /**
+     * Set juridicForm
+     *
+     * @param \AppBundle\Entity\JuridicForm $juridicForm
+     *
+     * @return Enterprise
+     */
+    public function setJuridicForm(\AppBundle\Entity\JuridicForm $juridicForm = null)
+    {
+        $this->juridicForm = $juridicForm;
+        $juridicForm->addEnterprise($this);
+
+        return $this;
+    }
+
+    /**
+     * Get juridicForm
+     *
+     * @return \AppBundle\Entity\JuridicForm
+     */
+    public function getJuridicForm()
+    {
+        return $this->juridicForm;
+    }
+}
