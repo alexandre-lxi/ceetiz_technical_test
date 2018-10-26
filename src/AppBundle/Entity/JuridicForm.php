@@ -41,6 +41,8 @@ class JuridicForm
     private $enterprises;
 
     /**
+     * Définir si l'adresse est obligatoire pour ce type d'entreprise.
+     *
      * @var boolean
      *
      * @ORM\Column(name="address_mandatory", type="boolean")

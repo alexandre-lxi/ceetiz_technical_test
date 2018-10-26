@@ -48,7 +48,7 @@ class EnterpriseController extends Controller
             }
         }
 
-       return $this->render('AppBundle:Enterprise:create.html.twig', array(
+       return $this->render('@App/Enterprise/create.html.twig', array(
         'form' => $form->createView(),
         ));
     }
